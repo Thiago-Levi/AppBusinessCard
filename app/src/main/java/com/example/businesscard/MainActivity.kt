@@ -1,5 +1,6 @@
 package com.example.businesscard
 
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,9 +10,20 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.rounded.Call
+import androidx.compose.material.icons.rounded.Email
+import androidx.compose.material.icons.rounded.Share
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,10 +56,15 @@ class MainActivity : ComponentActivity() {
 fun AppBusinessCard() {
     Column(
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize().background(Color(0x1F006a36))
     ) {
-        PresentationSession()
-        ContactsSession()
+        Column(modifier = Modifier.weight(0.7f), verticalArrangement = Arrangement.Center) {
+            PresentationSession()
+        }
+        Column(modifier = Modifier.weight(0.3f)) {
+            ContactsSession()
+        }
     }
 }
 
@@ -71,7 +89,7 @@ fun PresentationSession() {
                 text = "Android Developer Extraordinaire",
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color(0xFF3DDC84)
+                color = Color(0xFF006a36)
             )
         }
     }
@@ -79,7 +97,31 @@ fun PresentationSession() {
 
 @Composable
 fun ContactsSession() {
+    Box() {
+        Column {
+            ContactRow(theIcon = Icons.Rounded.Call, contactDescription = "+11(123) 444 555 666")
+            ContactRow(theIcon = Icons.Rounded.Share, contactDescription = "@androidDev")
+            ContactRow(theIcon = Icons.Rounded.Email, contactDescription = "jen.doe@android.com")
+        }
+    }
+}
 
+@Composable
+fun ContactRow(theIcon: ImageVector, contactDescription: String) {
+    Row(
+        modifier = Modifier.padding(6.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = theIcon,
+            contentDescription = "Phone Icon",
+            tint = Color(0xFF006a36),
+            modifier = Modifier.size(12.dp)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(text = contactDescription, fontSize = 12.sp, color = Color(0xFF006a36))
+    }
 }
 
 @Composable
